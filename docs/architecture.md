@@ -1,5 +1,9 @@
 # Field Sales Agent Architecture
 
+## Executive Summary
+
+For a business-readable and architecture-readable overview, see [Field Sales Agent Executive Summary](executive-summary.md).
+
 ## Purpose
 
 Field Sales Agent demonstrates how the DecisionTrace control model can be applied to governed field-sales workflows. The reference workflow, Quote Assist Agent, helps a rep prepare a grounded draft quote while keeping high-risk business actions under deterministic control.
@@ -33,7 +37,9 @@ The control principle stays the same: workflow state and guardrails control exec
 - **LlamaIndex-backed retrieval capability:** Powers the bounded MCP `retrieve_product_specs` tool for grounded product/spec evidence.
 - **Quote guardrails:** Determine whether draft quote creation is allowed, blocked, or requires approval.
 - **Audit trace:** Records workflow events, evidence references, decisions, and outcomes.
-- **Cost telemetry:** Tracks intake LLM usage, workflow LLM usage, MCP calls, RAG calls, retrieved chunks, and estimated cost only when rates are configured.
+- **OpenAI rep-facing drafting:** Optionally drafts a rep-facing response after the governed outcome is already determined.
+- **Rep response validation:** Deterministically validates OpenAI drafts before display and falls back to deterministic summaries when needed.
+- **Cost telemetry:** Tracks intake LLM usage, workflow drafting LLM usage, MCP calls, RAG calls, retrieved chunks, and estimated cost only when rates are configured.
 - **Monitoring/evaluation layer:** Validates workflow health, control outcomes, and golden scenarios.
 
 ## Intake Readiness Gate
@@ -104,6 +110,12 @@ Audit Trace should explain what happened and why. Public-safe trace displays sho
 For `retrieve_product_specs`, the UI should clearly label it as a LlamaIndex-backed MCP retrieval capability:
 
 > LlamaIndex-backed MCP tool: retrieves product/spec evidence with citations. It does not approve quotes or create actions.
+
+## Response Drafting Boundary
+
+OpenAI may draft a rep-facing response only after LangGraph has completed the governed outcome path. It does not decide intent, tool order, pricing, inventory, guardrails, approval, workflow outcome, draft quote creation, final orders, payment, shipment, or fulfillment.
+
+A deterministic validator rejects drafts that imply unsupported commitments or contradict the workflow outcome. If drafting is disabled, unavailable, failed, or unsafe, the deterministic fallback summary remains the final response.
 
 ## Cost Telemetry Layer
 

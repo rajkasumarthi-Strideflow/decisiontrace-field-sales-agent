@@ -7,7 +7,8 @@
 - Optional OpenAI-assisted intake extraction with deterministic validation
 - MCP-style tools/resources
 - LlamaIndex-backed MCP `retrieve_product_specs` capability
-- Cost telemetry with intake/workflow usage separation
+- Cost telemetry with intake/workflow drafting usage separation
+- Optional validated OpenAI rep-facing response drafting
 - Draft quote workflow
 - Audit Trace and Cost Telemetry UI concepts
 - Audit/monitoring/evaluation architecture
@@ -18,7 +19,7 @@
 ## Future Enhancements
 
 - Persistent intake funnel metrics
-- Controlled workflow response drafting
+- Production hardening for workflow response drafting
 - Dynamic model routing
 - Prompt caching
 - Semantic caching
@@ -38,3 +39,7 @@
 ## Public-Safe Boundary
 
 The roadmap describes architecture direction. Implementation details, internal accelerator logic, reusable private components, and proprietary schemas should remain in a private implementation repo.
+
+## Executive Summary
+
+For an executive and architecture-leader overview of the reference app, see [Field Sales Agent Executive Summary](executive-summary.md).

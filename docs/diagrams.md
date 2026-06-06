@@ -139,3 +139,28 @@ flowchart TD
   Review --> Fix["Fix and Regression Test"]
   Fix --> Golden
 ```
+
+
+## 7. Post-Outcome Response Drafting Boundary
+
+```mermaid
+sequenceDiagram
+  participant Graph as LangGraph Workflow
+  participant Guard as Quote Guardrails
+  participant Draft as Draft Quote Tool
+  participant OpenAI as OpenAI Drafting
+  participant Validator as Deterministic Validator
+  participant UI as Rep UI
+
+  Graph->>Guard: Determine allow / approval_required / block
+  alt Guardrail allows draft quote
+    Graph->>Draft: Create draft quote
+    Draft-->>Graph: Draft quote artifact
+  else Approval required or blocked
+    Guard-->>Graph: No draft quote created
+  end
+  Graph->>OpenAI: Optional response drafting after outcome
+  OpenAI-->>Validator: Draft response
+  Validator-->>Graph: pass or fallback required
+  Graph-->>UI: Validated OpenAI summary or deterministic fallback
+```

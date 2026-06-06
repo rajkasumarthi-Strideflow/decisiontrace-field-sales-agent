@@ -17,7 +17,7 @@ Audit, tracing, monitoring, and evaluations validate the control model.
 
 ## Current Public Status
 
-This public repo contains architecture and demo artifacts for the Field Sales Agent reference app. It reflects the current public-safe architecture direction through Phase 1J-T:
+This public repo contains architecture and demo artifacts for the Field Sales Agent reference app. It reflects the current public-safe architecture direction through Phase 1K:
 
 - Natural-language intake is the primary entry path.
 - Intake validates required facts before the governed workflow can start.
@@ -26,6 +26,8 @@ This public repo contains architecture and demo artifacts for the Field Sales Ag
 - Workflow nodes use bounded MCP-style capabilities.
 - `retrieve_product_specs` is a LlamaIndex-backed MCP retrieval capability.
 - Product/spec retrieval provides cited evidence only; it does not approve quotes or create actions.
+- Optional OpenAI rep-facing response drafting occurs only after the governed outcome is determined.
+- Deterministic validation checks any OpenAI-drafted rep response before display.
 - Audit Trace and Cost Telemetry are separate concepts.
 - Telemetry must come from real workflow execution, provider usage metadata, or configured rates. It should not be fabricated.
 
@@ -35,6 +37,7 @@ This public repo contains architecture and demo artifacts for the Field Sales Ag
 
 Included artifacts:
 
+- Executive summary for enterprise and architecture audiences
 - Lightweight PDR for Quote Assist Agent
 - Architecture overview and public/private boundary
 - C4 context and container diagrams
@@ -80,6 +83,7 @@ LangGraph node
 ```text
 README.md
 docs/
+  executive-summary.md
   pdr.md
   architecture.md
   diagrams.md
@@ -95,6 +99,7 @@ examples/
 
 ## Documentation Index
 
+- [Executive Summary](docs/executive-summary.md)
 - [Product Definition Requirements](docs/pdr.md)
 - [Architecture Overview](docs/architecture.md)
 - [Architecture Diagrams](docs/diagrams.md)
