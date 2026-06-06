@@ -3,10 +3,13 @@
 ## Phase 1
 
 - Quote Assist Agent MVP
+- Natural-language intake readiness gate
+- Optional OpenAI-assisted intake extraction with deterministic validation
 - MCP-style tools/resources
-- LlamaIndex product/spec RAG
-- Cost telemetry
+- LlamaIndex-backed MCP `retrieve_product_specs` capability
+- Cost telemetry with intake/workflow usage separation
 - Draft quote workflow
+- Audit Trace and Cost Telemetry UI concepts
 - Audit/monitoring/evaluation architecture
 - Synthetic account/product/inventory/pricing data
 - Public-safe API contract examples
@@ -15,9 +18,12 @@
 ## Future Enhancements
 
 - Persistent intake funnel metrics
+- Controlled workflow response drafting
 - Dynamic model routing
 - Prompt caching
 - Semantic caching
+- Configured rate cards for dollar cost estimation
+- Cost-per-outcome analytics
 - Rego/OPA policy-as-code
 - Voice interface
 - Salesforce/CPQ integration

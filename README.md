@@ -4,16 +4,30 @@
 
 Field Sales Agent is a DecisionTrace AI reference app for governed field-sales workflows. The first workflow, Quote Assist Agent, helps a mobile sales rep prepare a grounded, approval-aware draft quote using account context, product/spec retrieval, inventory checks, pricing rules, quote guardrails, audit replay, cost telemetry, and monitoring.
 
-Warranty Replacement proved the DecisionTrace control model using governed Python tool wrappers. Field Sales Agent demonstrates the same control model using an MCP-style tool/resource abstraction and LlamaIndex-backed product/spec RAG.
+Warranty Replacement proved the DecisionTrace control model using governed Python tool wrappers. Field Sales Agent demonstrates the same control model with an MCP-mediated tool/resource abstraction and a LlamaIndex-backed product/spec retrieval capability.
 
 ## Control Model Principle
 
 LangGraph controls the workflow.
 MCP exposes bounded tools/resources.
-LlamaIndex retrieves grounded product/spec evidence.
+LlamaIndex backs the bounded MCP `retrieve_product_specs` capability for grounded product/spec evidence.
 Guardrails control quote readiness and approval boundaries.
-Cost telemetry measures operating cost.
+Cost telemetry measures operating cost from actual execution metadata.
 Audit, tracing, monitoring, and evaluations validate the control model.
+
+## Current Public Status
+
+This public repo contains architecture and demo artifacts for the Field Sales Agent reference app. It reflects the current public-safe architecture direction through Phase 1J-T:
+
+- Natural-language intake is the primary entry path.
+- Intake validates required facts before the governed workflow can start.
+- OpenAI may assist with intake extraction when enabled, but deterministic validation remains the readiness gate.
+- LangGraph remains the workflow control layer.
+- Workflow nodes use bounded MCP-style capabilities.
+- `retrieve_product_specs` is a LlamaIndex-backed MCP retrieval capability.
+- Product/spec retrieval provides cited evidence only; it does not approve quotes or create actions.
+- Audit Trace and Cost Telemetry are separate concepts.
+- Telemetry must come from real workflow execution, provider usage metadata, or configured rates. It should not be fabricated.
 
 ## What This Public Repo Contains
 
@@ -25,7 +39,7 @@ Included artifacts:
 - Architecture overview and public/private boundary
 - C4 context and container diagrams
 - Workflow, retrieval, cost telemetry, and rollout diagrams
-- MCP/LlamaIndex pattern explanation
+- MCP-mediated LlamaIndex retrieval pattern explanation
 - Public-safe API contract examples
 - Cost telemetry design
 - Rollout and rollback design
@@ -43,6 +57,23 @@ This repository does not include proprietary implementation code, private databa
 Quote Assist Agent supports a governed field-sales scenario where a rep asks for a draft quote before a customer meeting. The workflow gathers required facts, retrieves account and product evidence, checks inventory, applies deterministic pricing rules, evaluates quote guardrails, creates a draft quote only when allowed, and records audit and cost telemetry.
 
 The workflow is draft-only. It does not submit final orders, collect payment, trigger shipment, or create unsupported customer commitments.
+
+## Correct Retrieval Pattern
+
+LangGraph does not call LlamaIndex directly. LangGraph calls the bounded MCP capability `retrieve_product_specs`. That MCP capability is backed by LlamaIndex retrieval over product/spec docs.
+
+```text
+LangGraph node
+-> MCP tool wrapper: retrieve_product_specs
+-> LlamaIndex retrieval service
+-> product/spec docs
+-> cited evidence
+-> MCP result
+-> LangGraph workflow state
+-> guardrail evaluation
+```
+
+`retrieve_product_specs` is evidence retrieval only. It does not approve quotes, create draft quotes, calculate pricing, check inventory, or override guardrails.
 
 ## Repository Structure
 

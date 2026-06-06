@@ -13,8 +13,8 @@ flowchart LR
   MCP --> CRM["Synthetic CRM Data"]
   MCP --> Inventory["Synthetic Inventory Data"]
   MCP --> Pricing["Pricing Rules"]
-  MCP --> RAG["LlamaIndex Product/Spec RAG"]
-  Workflow --> Audit["Audit / Trace / Monitoring"]
+  MCP --> RAG["LlamaIndex Product/Spec Retrieval"]
+  Workflow --> Audit["Audit Trace / Monitoring"]
   Workflow --> Cost["Cost Telemetry"]
   Reviewer["Manager / Reviewer"] --> UI
 ```
@@ -41,7 +41,7 @@ flowchart TB
   end
 
   subgraph Retrieval["Product Evidence"]
-    Index["LlamaIndex Index"]
+    Index["LlamaIndex Retrieval Service"]
     Specs["Synthetic Product Specs"]
   end
 
@@ -63,16 +63,19 @@ sequenceDiagram
   participant Router as Intake Router
   participant Graph as LangGraph Workflow
   participant MCP as MCP Tools/Resources
-  participant RAG as LlamaIndex RAG
+  participant RAG as LlamaIndex Retrieval
   participant Guard as Quote Guardrails
   participant Audit as Audit/Cost Telemetry
 
   Rep->>Router: Natural-language quote request
   Router->>Router: Extract account, products, quantities, discount intent
   Router-->>Rep: Clarification if required facts missing
-  Router->>Graph: Start quote assist workflow
+  Router->>Graph: Start quote assist workflow with validated fields
   Graph->>MCP: Retrieve synthetic account context
-  Graph->>RAG: Retrieve product/spec evidence
+  Graph->>MCP: retrieve_product_specs(query, filters)
+  MCP->>RAG: Retrieve product/spec evidence
+  RAG-->>MCP: Cited evidence
+  MCP-->>Graph: MCP result with evidence IDs
   Graph->>MCP: Check inventory
   Graph->>MCP: Calculate pricing and discount
   Graph->>Guard: Evaluate quote readiness
@@ -86,32 +89,33 @@ sequenceDiagram
 
 ```mermaid
 sequenceDiagram
-  participant Node as Workflow Node
-  participant Client as MCP Client
-  participant Server as MCP Server
-  participant Index as LlamaIndex Retriever
-  participant Corpus as Product/Spec Corpus
+  participant Node as LangGraph Node
+  participant MCP as MCP Tool Wrapper
+  participant Index as LlamaIndex Retrieval Service
+  participant Corpus as Product/Spec Docs
+  participant Guard as Guardrail Evaluation
   participant Audit as Audit/Cost
 
-  Node->>Client: search_product_specs(query, filters)
-  Client->>Server: Bounded MCP tool/resource call
-  Server->>Index: Query with metadata filters
+  Node->>MCP: retrieve_product_specs(query, filters)
+  MCP->>Index: Query with metadata filters
   Index->>Corpus: Retrieve candidate chunks
   Corpus-->>Index: Product/spec evidence
-  Index-->>Server: Ranked evidence with references
-  Server-->>Client: Public-safe evidence summary
-  Client-->>Node: Evidence IDs, chunks, confidence
-  Node->>Audit: Record RAG call, retrieved chunks, evidence references
+  Index-->>MCP: Ranked evidence with citations
+  MCP-->>Node: Evidence summary, citations, metadata
+  Node->>Guard: Evaluate state using cited evidence
+  Node->>Audit: Record retrieval event, chunks, evidence references
 ```
 
 ## 5. Cost Telemetry Flow
 
 ```mermaid
 flowchart LR
-  Workflow["Workflow Execution"] --> LLM["LLM Call Metrics"]
+  Workflow["Workflow Execution"] --> IntakeLLM["Intake LLM Usage When Configured"]
+  Workflow --> WorkflowLLM["Workflow LLM Usage When Implemented"]
   Workflow --> RAG["RAG Call Metrics"]
   Workflow --> MCP["MCP Tool Call Metrics"]
-  LLM --> Cost["Cost Telemetry Event"]
+  IntakeLLM --> Cost["Cost Telemetry Event"]
+  WorkflowLLM --> Cost
   RAG --> Cost
   MCP --> Cost
   Cost --> Store["Telemetry Store"]

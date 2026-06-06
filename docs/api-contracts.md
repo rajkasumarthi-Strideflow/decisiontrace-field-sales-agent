@@ -2,13 +2,13 @@
 
 These are proposed API contracts for the private implementation. They are public-safe examples, not runnable implementation code.
 
-## POST /api/intake/session/start
+## POST /api/intake/quote-assist/analyze
 
-Starts a natural-language intake session.
+Analyzes a natural-language quote request before the governed workflow starts. OpenAI may assist with extraction when enabled, but deterministic validation remains the readiness gate.
 
 ```json
 {
-  "message": "I’m meeting Westlake High School about helmets and jerseys. Build a draft quote."
+  "message": "Westlake High School wants 50 blue helmets. Create a quote."
 }
 ```
 
@@ -16,22 +16,27 @@ Response:
 
 ```json
 {
-  "intake_session_id": "intake_demo_001",
   "correlation_id": "corr_demo_001",
   "intent": "quote_assist_request",
-  "requires_clarification": true,
-  "missing_fields": ["quantity", "discount_type"],
-  "next_question": "Please provide quantities and requested discount type."
-}
-```
-
-## POST /api/intake/session/{session_id}/reply
-
-Adds a clarification reply.
-
-```json
-{
-  "message": "They need 50 varsity helmets and the standard booster club discount."
+  "account_name": "Westlake High School",
+  "product_request": "50 blue helmets",
+  "requested_quantity": 50,
+  "requested_color": "blue",
+  "requested_products": [
+    {
+      "product_family": "helmet",
+      "requested_quantity": 50,
+      "requested_color": "blue"
+    }
+  ],
+  "requires_clarification": false,
+  "missing_fields": [],
+  "invalid_fields": [],
+  "can_start_workflow": true,
+  "routing_status": "ready",
+  "extraction_source": "deterministic_or_openai",
+  "validation_source": "deterministic",
+  "readiness_decision_source": "deterministic"
 }
 ```
 
@@ -42,20 +47,18 @@ Starts the governed quote workflow after required facts are collected.
 ```json
 {
   "correlation_id": "corr_demo_001",
+  "customer_request": "Westlake High School wants 50 blue helmets. Create a quote.",
   "account_name": "Westlake High School",
-  "requested_items": [
+  "product_request": "50 blue helmets",
+  "requested_quantity": 50,
+  "requested_color": "blue",
+  "requested_products": [
     {
       "product_family": "helmet",
-      "quantity": 50,
-      "configuration": {
-        "color": "matte navy",
-        "level": "varsity"
-      }
+      "requested_quantity": 50,
+      "requested_color": "blue"
     }
-  ],
-  "discount_request": {
-    "type": "booster_club_standard"
-  }
+  ]
 }
 ```
 
@@ -87,7 +90,7 @@ Returns cost telemetry for a workflow correlation.
   "draft_quote_id": "dq_demo_001",
   "guardrail_decision": "allow",
   "requires_manager_approval": false,
-  "rep_summary": "Draft quote prepared for 50 varsity helmets in matte navy with standard booster club discount. Confirm final configuration before customer signature."
+  "rep_summary": "Draft quote prepared for 50 helmets. Confirm final configuration before customer signature."
 }
 ```
 
@@ -100,11 +103,12 @@ Returns cost telemetry for a workflow correlation.
   "correlation_id": "corr_demo_001",
   "event_type": "product_spec_retrieved",
   "node_name": "retrieve_product_specs",
-  "tool_name": "search_product_specs",
-  "evidence_reference": "spec_helmet_varsity_v1",
+  "tool_name": "retrieve_product_specs",
+  "architecture_path": "LangGraph node -> MCP tool wrapper -> LlamaIndex retrieval service -> cited evidence -> guardrail evaluation",
+  "evidence_reference": "helmet_catalog.md",
   "output_summary": {
-    "product_family": "helmet",
-    "compatible_color": true
+    "retrieval_role": "evidence_only",
+    "decision_authority": "guardrails"
   }
 }
 ```
@@ -116,16 +120,20 @@ Returns cost telemetry for a workflow correlation.
   "correlation_id": "corr_demo_001",
   "workflow_id": "wf_quote_demo_001",
   "workflow_type": "quote_assist",
-  "llm_calls": 2,
+  "intake_llm_calls": 1,
+  "workflow_llm_calls": 0,
   "rag_calls": 1,
   "retrieved_chunks": 4,
   "mcp_tool_calls": 5,
-  "input_tokens": 1200,
-  "output_tokens": 320,
-  "total_tokens": 1520,
-  "estimated_cost_usd": 0.013
+  "input_tokens": null,
+  "output_tokens": null,
+  "total_tokens": null,
+  "estimated_cost_usd": null,
+  "estimated_cost_status": "not_configured"
 }
 ```
+
+Token values should be populated only when provider usage metadata is returned. Dollar estimates should be populated only when pricing rates are configured.
 
 ## Monitoring Summary Example
 
@@ -137,6 +145,7 @@ Returns cost telemetry for a workflow correlation.
   "clarification_required": 4,
   "blocked_by_policy": 3,
   "approval_required": 4,
-  "average_estimated_cost_usd": 0.014
+  "average_estimated_cost_usd": null,
+  "estimated_cost_status": "not_configured"
 }
 ```
