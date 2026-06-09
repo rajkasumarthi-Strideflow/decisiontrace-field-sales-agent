@@ -46,3 +46,7 @@ The AI assists the rep, but the control model governs the workflow. The app is d
 ## 6. Closing
 
 Field Sales Agent demonstrates how DecisionTrace AI can extend from support workflows into revenue workflows while preserving the same governance pattern: route, retrieve, validate, guard, audit, measure, and improve.
+
+## Phase 1 Validation Status
+
+The deployed Phase 1 release candidate has been validated across the valid quote, inventory unavailable, unsupported product/configuration, final order/shipment request, and missing details scenarios. The demo remains draft-only: no final order, payment, shipment, or fulfillment is created.

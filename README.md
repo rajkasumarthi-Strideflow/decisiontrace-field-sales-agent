@@ -6,6 +6,15 @@ Field Sales Agent is a DecisionTrace AI reference app for governed field-sales w
 
 Warranty Replacement proved the DecisionTrace control model using governed Python tool wrappers. Field Sales Agent demonstrates the same control model with an MCP-mediated tool/resource abstraction and a LlamaIndex-backed product/spec retrieval capability.
 
+
+## Live Demo
+
+Live demo: <Railway demo URL>
+
+Phase 1 status: Deployed release candidate validated.
+
+Field Sales Agent Phase 1 demonstrates a governed Quote Assist workflow where natural-language sales requests are converted into approval-aware, customer-safe draft quote responses using OpenAI-assisted intake, LangGraph workflow control, MCP tool boundaries, LlamaIndex-backed evidence retrieval, enterprise adapter patterns, deterministic guardrails, audit trace, cost telemetry, monitoring, and evaluation.
+
 ## Control Model Principle
 
 LangGraph controls the workflow.
@@ -17,7 +26,7 @@ Audit, tracing, monitoring, and evaluations validate the control model.
 
 ## Current Public Status
 
-This public repo contains architecture and demo artifacts for the Field Sales Agent reference app. It reflects the current public-safe architecture direction through Phase 1K:
+This public repo contains architecture and demo artifacts for the Field Sales Agent reference app. It reflects the current public-safe architecture direction through the validated Phase 1 release candidate:
 
 - Natural-language intake is the primary entry path.
 - Intake validates required facts before the governed workflow can start.
@@ -107,6 +116,7 @@ examples/
 - [Cost Telemetry Design](docs/cost-telemetry.md)
 - [Rollout and Rollback](docs/rollout-rollback.md)
 - [Demo Script](docs/demo-script.md)
+- [Phase 1 Public Release Notes](docs/release-notes-phase-1.md)
 - [Roadmap](docs/roadmap.md)
 - [Synthetic Scenarios](examples/synthetic-scenarios.md)
 - [Sample API Payloads](examples/sample-api-payloads.json)

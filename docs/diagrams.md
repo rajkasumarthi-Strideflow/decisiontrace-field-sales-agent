@@ -1,6 +1,6 @@
 # Field Sales Agent Diagrams
 
-These Mermaid diagrams are public-safe architecture diagrams for the DecisionTrace — Quote Assist Agent reference workflow.
+These Mermaid diagrams are public-safe architecture diagrams for the DecisionTrace — Quote Assist Agent reference workflow. The Phase 1 release candidate has been validated against the public demo scenarios.
 
 ## 1. C4 Context Diagram
 

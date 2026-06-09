@@ -4,6 +4,10 @@
 
 For a business-readable and architecture-readable overview, see [Field Sales Agent Executive Summary](executive-summary.md).
 
+## Phase 1 Validation Status
+
+The Phase 1 demo has been validated as a deployed release candidate. The validated behavior covers draft quote creation, approval-required outcomes, blocked unsupported configurations, intake blocking for final order/shipment requests, and missing-details clarification.
+
 ## Purpose
 
 Field Sales Agent demonstrates how the DecisionTrace control model can be applied to governed field-sales workflows. The reference workflow, Quote Assist Agent, helps a rep prepare a grounded draft quote while keeping high-risk business actions under deterministic control.

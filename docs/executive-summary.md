@@ -212,7 +212,21 @@ Contrasting case:
 
 If inventory is insufficient, the workflow may require approval. No draft quote is created when guardrails require approval.
 
-## 11. Public vs Private Repo Boundary
+
+## 11. Phase 1 Validation Status
+
+Phase 1 has been validated as a deployed release candidate for public demo and architecture review. The validated scenarios confirm:
+
+- deployed demo validated
+- valid quote creates a draft quote
+- inventory shortage requires approval
+- unsupported product configuration is blocked
+- final order/shipment request is blocked at intake
+- no final order/payment/shipment/fulfillment is created
+
+This validation does not claim production readiness, real enterprise integration, or regulatory compliance. It confirms that the public demo narrative aligns with the governed Quote Assist control model and release-candidate behavior.
+
+## 12. Public vs Private Repo Boundary
 
 This public repo contains architecture, executive summary, diagrams, API examples, and demo narrative. The full runnable implementation, MCP server code, LlamaIndex pipeline, database/schema details, cost telemetry logic, reusable orchestration code, and proprietary accelerator internals remain in a private implementation repo.
 
@@ -226,7 +240,7 @@ Do not include:
 - real product data
 - proprietary accelerator internals
 
-## 12. Roadmap
+## 13. Roadmap
 
 Future directions include:
 

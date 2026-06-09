@@ -16,6 +16,10 @@
 - Public-safe API contract examples
 - Controlled rollout/rollback design
 
+## Phase 1 Validation Status
+
+Phase 1 is a deployed release candidate validated against the public demo scenarios. The validated release confirms the Quote Assist control model, audit trace, cost telemetry, monitoring, and evaluation narrative while preserving the public/private implementation boundary.
+
 ## Future Enhancements
 
 - Persistent intake funnel metrics
