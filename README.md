@@ -20,14 +20,17 @@ Phase 1 status: Deployed release candidate validated.
 
 Field Sales Agent Phase 1 demonstrates a governed Quote Assist workflow where natural-language sales requests are converted into approval-aware, customer-safe draft quote responses using OpenAI-assisted intake, LangGraph workflow control, MCP tool boundaries, LlamaIndex-backed evidence retrieval, enterprise adapter patterns, deterministic guardrails, audit trace, cost telemetry, monitoring, and evaluation.
 
+The demo separates the business/operator experience from the architecture/governance experience. Workflow Console shows concise outcome summaries and the validated customer-safe response. Audit Trace shows detailed execution evidence, including node input, node output, external request, external response, and audit metadata.
+
 ## What to Look For in the Live Demo
 
 1. Start with the Workflow Console.
-   - Enter or select a sales request.
-   - See the sales rep request and validated customer-safe response side by side.
+   - Use this to understand the sales rep request, workflow outcome, concise business outcome summary, and validated customer-safe response.
+   - This is the business/operator experience.
 
 2. Open Audit Trace.
-   - See the execution path across Business Event, LangGraph Node, MCP Tool, Enterprise Adapter, Mock Enterprise Endpoint, RAG Evidence, and Guardrail Decision.
+   - Use this to inspect node boundaries, MCP/tool calls, guardrail decisions, RAG evidence, OpenAI drafting payload, and audit metadata.
+   - This is the architecture/governance experience, including node input, node output, external request, external response, and audit metadata.
 
 3. Open Cost Telemetry.
    - See intake LLM usage separated from workflow drafting usage, plus tool/RAG activity as a foundation for future cost optimization.

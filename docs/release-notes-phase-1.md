@@ -49,6 +49,10 @@ This public repo contains architecture, demo narrative, diagrams, API examples, 
 
 Do not place secrets, API keys, private database files, implementation source, real customer data, real product data, or proprietary accelerator internals in this public repo.
 
+## Demo Experience Separation
+
+The demo separates the business/operator experience from the architecture/governance experience. Workflow Console shows concise outcome summaries and the validated customer-safe response. Audit Trace shows detailed execution evidence, including node input, node output, external request, external response, and audit metadata.
+
 ## Release Boundary
 
 Phase 1 is a validated demo release candidate, not a production deployment claim. It uses synthetic data, public-safe architecture descriptions, and demo scenarios to explain the control model.

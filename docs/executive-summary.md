@@ -8,6 +8,8 @@ Field Sales Agent is a DecisionTrace AI reference app for governed field-sales w
 
 The architecture demonstrates how AI can assist field sales without turning a generic chatbot loose on pricing, inventory, product claims, approvals, or customer commitments. Language models are used only in bounded roles, while deterministic workflow controls, tool boundaries, guardrails, audit trace, cost telemetry, and evaluation define the operating model.
 
+The demo separates the business/operator experience from the architecture/governance experience. Workflow Console shows concise outcome summaries and the validated customer-safe response. Audit Trace shows detailed execution evidence, including node input, node output, external request, external response, and audit metadata.
+
 ## 2. Portfolio Positioning
 
 Field Sales Agent demonstrates enterprise AI architecture depth across orchestration, governance, integration, retrieval, validation, auditability, cost visibility, monitoring, and evaluation. It is intended as a reference design for moving beyond isolated AI pilots toward reusable enterprise AI control patterns.
