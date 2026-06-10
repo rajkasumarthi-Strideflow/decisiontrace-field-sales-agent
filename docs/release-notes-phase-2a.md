@@ -22,7 +22,7 @@ This is a public-safe architecture note. The runnable implementation remains in 
 | Scenario | Prompt | Expected Outcome |
 | --- | --- | --- |
 | Standard Discount | `Create a draft quote for Westlake High School for 50 varsity helmets in matte navy with a 5% discount.` | Draft quote created |
-| Discount Approval | `Create a draft quote for Westlake High School for 50 varsity helmets in matte navy with a 15% discount.` | Approval required, no draft quote |
+| Discount Approval Scenario | `Create a draft quote for Westlake High School for 50 varsity helmets in matte navy with a 15% discount.` | Approval required, no draft quote |
 | Discount Blocked | `Create a draft quote for Westlake High School for 50 varsity helmets in matte navy with a 25% discount.` | Blocked by policy, no draft quote |
 
 ## Audit Trace Evidence
