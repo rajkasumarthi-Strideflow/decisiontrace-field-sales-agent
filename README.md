@@ -99,6 +99,13 @@ Guardrails control quote readiness and approval boundaries.
 Cost telemetry measures operating cost from actual execution metadata.
 Audit, tracing, monitoring, and evaluations validate the control model.
 
+
+## Phase 2A: Policy-as-Code Discount Guardrail
+
+Phase 2A adds a policy-as-code discount approval guardrail to the Quote Assist Agent architecture. Standard discounts are allowed, manager-level discounts require approval, and excessive discounts are blocked before draft quote creation. The Audit Trace records the matched policy rule, policy version, decision, and evidence that the decision was not made by OpenAI.
+
+See [Phase 2A Release Notes](docs/release-notes-phase-2a.md).
+
 ## Current Public Status
 
 This public repo contains architecture and demo artifacts for the Field Sales Agent reference app. It reflects the current public-safe architecture direction through the validated Phase 1 release candidate:
@@ -192,6 +199,7 @@ examples/
 - [30-Second Recruiter Summary](docs/recruiter-summary-30-second.md)
 - [LinkedIn Project Summary](docs/linkedin-project-summary.md)
 - [Public Release Notes](docs/release-notes-phase-1.md)
+- [Phase 2A Release Notes](docs/release-notes-phase-2a.md)
 - [Architecture](docs/architecture.md)
 - [Diagrams](docs/diagrams.md)
 - [Roadmap](docs/roadmap.md)
@@ -210,6 +218,7 @@ examples/
 - [30-Second Recruiter Summary](docs/recruiter-summary-30-second.md)
 - [2-Minute Demo Talk Track](docs/demo-talk-track-2-minute.md)
 - [Phase 1 Public Release Notes](docs/release-notes-phase-1.md)
+- [Phase 2A Release Notes](docs/release-notes-phase-2a.md)
 - [Roadmap](docs/roadmap.md)
 - [Synthetic Scenarios](examples/synthetic-scenarios.md)
 - [Sample API Payloads](examples/sample-api-payloads.json)

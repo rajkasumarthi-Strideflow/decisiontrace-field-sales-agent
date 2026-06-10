@@ -260,3 +260,7 @@ Future directions include:
 - production-grade authentication and authorization
 - Salesforce/CPQ integration
 - human approval workflow integration
+
+## 14. Phase 2A Policy-as-Code Guardrail
+
+Phase 2A extends the control model with a policy-as-code discount approval guardrail. Discount authority is evaluated through a versioned policy layer before guardrails allow draft quote creation, require approval, or block the request. This reinforces the DecisionTrace principle that OpenAI assists with language while deterministic controls govern business decisions. Audit Trace records the policy decision path, including matched rule, policy version, decision, and evidence that the decision was not made by the LLM.
