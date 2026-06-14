@@ -106,6 +106,23 @@ Phase 2A adds a policy-as-code discount approval guardrail to the Quote Assist A
 
 See [Phase 2A Release Notes](docs/release-notes-phase-2a.md).
 
+## Next Priority: Agentforce Implementation Mapping
+
+Field Sales Agent remains tool-agnostic, but the next portfolio step is to map the architecture into an Agentforce implementation model. This will show how the same enterprise AI control patterns — workflow orchestration, bounded actions, data grounding, policy guardrails, audit trace, cost telemetry, monitoring, and evaluation — can accelerate Salesforce and Agentforce delivery without hard-coding the architecture to one platform.
+
+Planned Phase 2B outputs:
+
+- Agentforce mapping diagram
+- Field Sales Agent node-to-Agentforce concept mapping
+- action/tool boundary mapping
+- Flow/Apex/MuleSoft integration boundary mapping
+- policy guardrail placement
+- auditability and evaluation checklist
+- implementation planning checklist
+- demo talk track for Salesforce / Agentforce audiences
+
+Agentforce mapping is planned as an architecture and implementation planning artifact. It does not imply a live Salesforce integration in the current demo.
+
 ## Current Public Status
 
 This public repo contains architecture and demo artifacts for the Field Sales Agent reference app. It reflects the current public-safe architecture direction through the validated Phase 1 release candidate:

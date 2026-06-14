@@ -250,16 +250,13 @@ Do not include:
 
 Future directions include:
 
-- cost rate configuration and cost-per-outcome reporting
-- model routing and prompt optimization
-- semantic/prompt caching
-- LangSmith evaluation integration
-- LLM-as-judge for response quality
-- tau-bench-inspired dynamic agent evaluation
-- persistent trace-to-evaluation improvement loop
-- production-grade authentication and authorization
-- Salesforce/CPQ integration
-- human approval workflow integration
+1. **Phase 2B — Agentforce Implementation Mapping**
+2. **Phase 2C — Evaluation and Release Quality Gates**
+3. **Phase 2D — Cost Rate Configuration and Cost-per-Outcome Analytics**
+4. **Phase 2E — Human Approval Handoff Pattern**
+5. **Later — Policy Version Promotion / Policy Workbench**
+
+Agentforce mapping is the next portfolio priority because it connects the tool-agnostic Field Sales Agent control model to a concrete enterprise SaaS implementation path. The mapping will show how workflow orchestration, bounded actions, Flow/Apex/MuleSoft boundaries, data grounding, policy guardrails, audit trace, cost telemetry, monitoring, and evaluation can accelerate Salesforce and Agentforce planning without claiming a live Salesforce integration in the current demo.
 
 ## 14. Phase 2A Policy-as-Code Guardrail
 
